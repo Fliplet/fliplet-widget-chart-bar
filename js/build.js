@@ -10,6 +10,7 @@
       var chartUuid = data.uuid;
       var $container = $(this);
       var refreshTimeout = 5000;
+      var refreshTimer;
       var updateDateFormat = 'hh:mm:ss a';
       var colors = [
         '#00abd1', '#ed9119', '#7D4B79', '#F05865', '#36344C',
@@ -225,25 +226,33 @@
         return Promise.resolve(chart);
       }
 
-      function getLatestData() {
-        return new Promise(function (resolve, reject) {
-          setTimeout(function () {
-            refreshData().then(function () {
-              if (data.autoRefresh) {
-                getLatestData();
-              }
+      function refresh() {
+        if (refreshTimer) {
+          clearTimeout(refreshTimer);
+          refreshTimer = null;
+        }
 
-              refreshChart();
-              resolve();
-            }).catch(function (err) {
-              if (data.autoRefresh) {
-                getLatestData();
-              }
+        return refreshData().then(function () {
+          if (data.autoRefresh) {
+            setRefreshTimer();
+          }
 
-              reject(err);
-            });
-          }, refreshTimeout);
+          return refreshChart();
+        }).catch(function (err) {
+          if (data.autoRefresh) {
+            setRefreshTimer();
+          }
+
+          return Promise.reject(err);
         });
+      }
+
+      function setRefreshTimer() {
+        if (refreshTimer) {
+          clearTimeout(refreshTimer);
+        }
+
+        refreshTimer = setTimeout(refresh, refreshTimeout);
       }
 
       Fliplet.Studio.onEvent(function(event) {
@@ -293,7 +302,7 @@
                 load: function(){
                   refreshChartInfo();
                   if (data.autoRefresh) {
-                    getLatestData();
+                    setRefreshTimer();
                   }
                 },
                 render: function () {
@@ -429,7 +438,7 @@
 
       refreshData().then(drawChart).catch(function (error) {
         console.error(error);
-        getLatestData();
+        setRefreshTimer();
       });
 
       Fliplet.Chart.add(chartPromise);
@@ -437,7 +446,7 @@
       chartReady({
         name: data.chartName,
         type: 'bar',
-        refresh: getLatestData
+        refresh: refresh
       });
     });
   }
