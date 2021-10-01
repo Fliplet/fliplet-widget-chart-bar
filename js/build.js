@@ -13,7 +13,6 @@
       var $container = $(this);
       var refreshTimeout = 5000;
       var refreshTimer;
-      var updateDateFormat = 'hh:mm:ss a';
       var colors = [
         '#00abd1', '#ed9119', '#7D4B79', '#F05865', '#36344C',
         '#474975', '#8D8EA6', '#FF5722', '#009688', '#E91E63'
@@ -24,6 +23,8 @@
       var chartPromise = new Promise(function(resolve) {
         chartReady = resolve;
       });
+
+      $container.translate();
 
       function sortData() {
         var sortMethod = 'alphabetical';
@@ -151,14 +152,14 @@
                     return;
                   }
 
-                  data.columns.push(row[data.dataSourceQuery.columns.category] || 'Category ' + (i + 1));
+                  data.columns.push(row[data.dataSourceQuery.columns.category] || T('widgets.chart.bar.category') + ' ' + TN(i + 1));
                   data.values.push(parseInt(row[data.dataSourceQuery.columns.value], 10) || 0);
                   data.totalEntries++;
                 });
                 break;
               case 1:
                 // Summarise data
-                data.name = 'Count of ' + data.dataSourceQuery.columns.column;
+                data.name = T('widgets.chart.bar.count') + ' ' + data.dataSourceQuery.columns.column;
                 result.dataSourceEntries.forEach(function(row) {
                   var value = row[data.dataSourceQuery.columns.column];
 
@@ -217,9 +218,9 @@
 
       function refreshChartInfo() {
         // Update total count
-        $container.find('.total').html(data.totalEntries);
+        $container.find('.total').html(TN(data.totalEntries));
         // Update last updated time
-        $container.find('.updatedAt').html(moment().format(updateDateFormat));
+        $container.find('.updatedAt').html(TD(new Date(), { format: 'LTS' }));
       }
 
       function refreshChart() {
