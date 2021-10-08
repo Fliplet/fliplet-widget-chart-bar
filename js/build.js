@@ -157,7 +157,7 @@
                 });
                 break;
               case 1:
-                // Summarise data
+                // Summarize data
                 data.name = 'Count of ' + data.dataSourceQuery.columns.column;
                 result.dataSourceEntries.forEach(function(row) {
                   var value = row[data.dataSourceQuery.columns.column];
@@ -202,10 +202,19 @@
                     }
                   }
                 });
-                sortData();
-                // SAVES THE TOTAL NUMBER OF ROW/ENTRIES
-                data.totalEntries = data.entries.length;
-                break;
+
+                return Fliplet.Hooks.run('afterChartSummary', {
+                  config: data,
+                  id: data.id,
+                  uuid: data.uuid,
+                  type: 'bar',
+                  records: result
+                }).then(function() {
+                  sortData();
+
+                  // SAVES THE TOTAL NUMBER OF ROW/ENTRIES
+                  data.totalEntries = _.sum(data.values);
+                });
             }
 
             return Promise.resolve();
