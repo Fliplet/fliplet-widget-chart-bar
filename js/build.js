@@ -158,7 +158,7 @@
                 });
                 break;
               case 1:
-                // Summarise data
+                // Summarize data
                 data.name = T('widgets.chart.bar.count', { column: data.dataSourceQuery.columns.column });
                 result.dataSourceEntries.forEach(function(row) {
                   var value = row[data.dataSourceQuery.columns.column];
