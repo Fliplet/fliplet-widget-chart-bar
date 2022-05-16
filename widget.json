@@ -1,6 +1,6 @@
 {
-  "name": "Chart: Bar Lav",
-  "package": "com.fliplet.chart.bar-lav",
+  "name": "Chart: Bar",
+  "package": "com.fliplet.chart.bar",
   "version": "1.1.0",
   "icon": "img/icon.png",
   "tags": ["type:component", "category:charts"],
