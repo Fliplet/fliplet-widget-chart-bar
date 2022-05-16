@@ -1,0 +1,13 @@
+{
+  "widgets": {
+    "charts": {
+      "bar": {
+        "title": "Count of {{name}}",
+        "category": "Category {{count}}",
+        "total": "Total",
+        "lastUpdated": "Last updated",
+        "seriesName": "{{name}}: "
+      }
+    }
+  }
+}
