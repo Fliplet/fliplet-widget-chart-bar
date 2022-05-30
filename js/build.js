@@ -1,6 +1,4 @@
 Fliplet.Widget.instance('chart-bar-1-1-0', function(data) {
-  console.log('instantiation');
-
   var chartId = data.id;
   var chartUuid = data.uuid;
   var inheritColor1 = true;
