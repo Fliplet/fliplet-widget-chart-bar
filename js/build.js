@@ -1,4 +1,4 @@
-(function() {
+Fliplet().then(function() {
   window.ui = window.ui || {};
   ui.flipletCharts = ui.flipletCharts || {};
 
@@ -546,4 +546,4 @@
   });
 
   init();
-})();
+});
