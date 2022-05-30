@@ -1,3 +1,6 @@
+window.ui = window.ui || {};
+ui.flipletCharts = ui.flipletCharts || {};
+
 Fliplet.Widget.instance('chart-bar-1-1-0', function(data) {
   var chartId = data.id;
   var chartUuid = data.uuid;
@@ -19,9 +22,6 @@ Fliplet.Widget.instance('chart-bar-1-1-0', function(data) {
   Fliplet.Chart.add(chartPromise);
 
   function init() {
-    window.ui = window.ui || {};
-    ui.flipletCharts = ui.flipletCharts || {};
-
     function sortData() {
       var sortMethod = 'alphabetical';
       var sortOrder = 'asc';
