@@ -24,7 +24,7 @@
       "jquery",
       "moment",
       "bootstrap",
-      "highcharts",
+      "fliplet-chart",
       "font-awesome",
       "fliplet-core",
       "fliplet-datasources",
