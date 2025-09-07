@@ -30,6 +30,6 @@
       "fliplet-datasources",
       "lodash"
     ],
-    "assets": ["css/build.css", "js/build.js"]
+    "assets": ["css/build.css", "js/utils.js", "js/build.js"]
   }
 }
